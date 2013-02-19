@@ -61,6 +61,7 @@ class Corpora:
     corpora = []
     default_corpora = [
      'corpora/traversed/all2.txt',
+     'corpora/traversed/nyt.txt',
     ]
     
     def __init__(self, corpora=None):
