@@ -35,7 +35,6 @@ class Corpus:
         Format: $filename-$n-$md5hash
         """
         compiled_filename = self.compiled_ngram_filename(ngram)
-        print "Checking for %s" % compiled_filename
         return os.path.isfile(compiled_filename)
     
     def save(self, n, data):
