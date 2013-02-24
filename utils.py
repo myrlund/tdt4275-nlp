@@ -24,7 +24,7 @@ sentence_splitter_regex = re.compile("[\.;:]\s+")
 def text_to_sentences(text):
     """Splits a text string into a list of sentences."""
     lowercase = text.lower()
-    raw_sentences = sentence_splitter_regex.split(text)
+    raw_sentences = sentence_splitter_regex.split(lowercase)
     stripped_sentences = [s.strip() for s in raw_sentences]
     return stripped_sentences
 

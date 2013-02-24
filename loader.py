@@ -3,6 +3,7 @@ import os, hashlib, pickle
 from itertools import chain
 
 from word_frequencies import text_to_counted_ngrams
+from collections import Counter, defaultdict
 
 class Corpus:
     COMPILATION_FORMAT = os.path.join("corpora", "compiled", "%s-%s-%i.nlpc")
@@ -48,12 +49,11 @@ class Corpus:
     
     def ngrams(self, n):
         if self.is_compiled(n):
-            print "Cache hit."
             return self.load(n)
         
         print "Cache miss -- recompiling."
         
-        counted_ngrams = text_to_counted_ngrams(self.text)
+        counted_ngrams = text_to_counted_ngrams(self.text, n=n)
         self.save(n, counted_ngrams)
         return counted_ngrams
 
@@ -74,9 +74,14 @@ class Corpora:
     def add_corpus(self, filename):
         self.corpora.append(Corpus(filename))
     
-    # @property
-    # def all_text(self):
-    #     return "\n\n".join([corpus.text for corpus in self.corpora])
-    
     def ngrams(self, n):
-        return list(chain.from_iterable([corpus.ngrams(n) for corpus in self.corpora]))
+        
+        # The defaultdict returns 0 if key doesn't exist
+        all_ngrams = defaultdict(int, self.corpora[0].ngrams(n))
+        
+        # Merge the corpora, summing their values
+        for corpus in self.corpora[1:]:
+            for k, v in corpus.ngrams(n).iteritems():
+                all_ngrams[k] += v
+        
+        return all_ngrams
