@@ -15,7 +15,7 @@ def unsmoothed_ngram(corpora, word, preceding=[], good_turing=False):
     
     unigrams = corpora.ngrams(1)
     if n == 1:
-        return 1.0 * unigrams[word] / unigrams['_total']
+        return 1.0 * unigrams[(word,)] / unigrams['_total']
     else:
         bigrams = corpora.ngrams(n)
         bigram = tuple(preceding) + (word,)
