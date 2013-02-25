@@ -4,36 +4,41 @@
 import hashlib
 
 from loader import *
+from operator import mul
 from word_frequencies import text_to_counted_ngrams
 
-def unsmoothed_ngram(corpora, word, preceding=[], good_turing=False):
-    """Calculates the chance of a word occuring based on its frequency in the corpus."""
-    n = len(preceding) + 1
-    if n > 2:
-        print "Supports only uni- and bi-grams."
-        return None
-    
+def unsmoothed_unigram(corpora, words):
     unigrams = corpora.ngrams(1)
-    if n == 1:
-        return 1.0 * unigrams[(word,)] / unigrams['_total']
-    else:
-        bigrams = corpora.ngrams(n)
-        bigram = tuple(preceding) + (word,)
-        return 1.0 * bigrams[bigram] / unigrams[tuple(preceding)]
-        
-Corpora.unsmoothed_ngram = unsmoothed_ngram
+    probabilities = [1.0 * unigrams[(word,)] / unigrams['_total'] for word in words]
+    return reduce(mul, probabilities, 1)
 
-def _unsmoothed_bigram(word, previous_word, words=[], bigrams=[]):
-    # P(word|previous_word) = P(previous_word word) / P(previous_word)
-    n_bigrams_with_prev = sum([v for k, v in bigrams.iteritems() if k[0] == previous_word])
-    n_both =              bigrams.get((previous_word, word), 0)
+def unsmoothed_ngram(corpora, words, n=2, sentence=False, good_turing=False):
+    """Calculates the chance of a word occuring based on its frequency in the corpus."""
     
-    print n_both, n_bigrams_with_prev
-    
-    if n_bigrams_with_prev > 0:
-        return 1.0 * n_both / n_bigrams_with_prev
-    else:
+    if len(words) < 1 or n < 1:
         return None
+    
+    if n == 1 or len(words) == 1:
+        return unsmoothed_unigram(corpora, words)
+    
+    ngrams = {}
+    ngrams[n] = corpora.ngrams(n)
+    ngrams[n-1] = corpora.ngrams(n-1)
+    
+    if sentence:
+        sentence = [None] + words + [None]
+    else:
+        sentence = words
+    
+    probabilities = []
+    for i in range(len(sentence)-n+1):
+        ngram = tuple(sentence[i:i+n])
+        p = 1.0 * ngrams[n][ngram] / ngrams[n-1][ngram[:-1]]
+        probabilities.append(p)
+    
+    return reduce(mul, probabilities, 1)
+    
+Corpora.unsmoothed_ngram = unsmoothed_ngram
 
 if __name__ == '__main__':
     import argparse, sys
@@ -43,9 +48,9 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description="Computes unsmoothed bigrams.")
     parser.add_argument('-g', '--good-turing', action='store_true', help="Use good-turing discounting.")
+    parser.add_argument('-n', type=int, nargs='?', default=2, help="Puts the n in n-gram.")
+    parser.add_argument('-s', '--sentence', action='store_true', help="Includes start and end of sentence to the probability calculation.")
     parser.add_argument('words', nargs='+')
     args = parser.parse_args()
     
-    print corpora.unsmoothed_ngram(args.words[-1], preceding=tuple(args.words[:-1]), good_turing=args.good_turing)
-    
-    
+    print corpora.unsmoothed_ngram(args.words, n=args.n, sentence=args.sentence, good_turing=args.good_turing)
