@@ -38,6 +38,7 @@ def count_words_taggings(tagged_words):
     counted_word_taggings = Counter(tagged_words)
     return counted_word_taggings
 
+# Task 3a
 def simple_most_likely_tag(word):
     word_taggings = count_words_taggings(brown.tagged_words())
     
