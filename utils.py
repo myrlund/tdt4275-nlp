@@ -28,11 +28,15 @@ def text_to_sentences(text):
     stripped_sentences = [s.strip() for s in raw_sentences]
     return stripped_sentences
 
-word_cleaner_regex = re.compile("%s(\w+)%s" % (("\W*",) * 2))
 word_filter_regex = re.compile(".*[a-z]+.*")
+def filter_words(words):
+    filtered_words = filter(lambda x: word_filter_regex.match(x), words)
+    return filtered_words
+
+word_cleaner_regex = re.compile("%s(\w+)%s" % (("\W*",) * 2))
 def sentence_to_words(sentence):
     """Splits a sentence string into a list of words."""
     raw_words = sentence.split()
     cleaned_words = [word_cleaner_regex.sub("\\1", word) for word in raw_words]
-    words = filter(lambda x: word_filter_regex.match(x), cleaned_words)
+    words = filter_words(cleaned_words)
     return words

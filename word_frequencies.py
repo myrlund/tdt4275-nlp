@@ -6,7 +6,14 @@ from utils import *
 def text_to_ngrams(text, n=2):
     """Takes a text and returns an array of n-tuples."""
     sentences = text_to_sentences(text)
-    nested_words = [sentence_to_words(sentence) for sentence in sentences]
+    return sentences_to_ngrams(sentences, n, split=True)
+
+def sentences_to_ngrams(sentences, n=2, split=False):
+    if split:
+        nested_words = [sentence_to_words(sentence) for sentence in sentences]
+    else:
+        nested_words = [[None] + map(lambda x: x.lower(), filter_words(sentence)) + [None] for sentence in sentences]
+    
     nested_ngrams = [ngrams(words, n=n) for words in nested_words]
     return list(chain.from_iterable(nested_ngrams))
 

@@ -2,13 +2,14 @@ import os, hashlib, pickle
 
 from itertools import chain
 
-from word_frequencies import text_to_counted_ngrams
+from word_frequencies import text_to_counted_ngrams, sentences_to_ngrams, counted_ngrams
 from collections import Counter, defaultdict
 
 class Corpus:
     COMPILATION_FORMAT = os.path.join("corpora", "compiled", "%s-%s-%i.nlpc")
     
     filename = None
+    data = False
     def __init__(self, filename):
         self.filename = filename
     
@@ -41,26 +42,49 @@ class Corpus:
         """Saves a compiled set of n-grams."""
         compiled_filename = self.compiled_ngram_filename(n)
         pickle.dump(data, open(compiled_filename, 'w'))
+        self.data = data
     
     def load(self, n):
         """Loads a saved set of n-grams."""
-        return pickle.load(open(self.compiled_ngram_filename(n)))
+        if self.data:
+            return self.data
+        else:
+            self.data = pickle.load(open(self.compiled_ngram_filename(n)))
+            return self.data
+    
+    def compile_ngrams(self, n):
+        counted_ngrams = text_to_counted_ngrams(self.text, n=n)
+        return counted_ngrams
     
     def ngrams(self, n):
         if self.is_compiled(n):
             return self.load(n)
         
         print "Cache miss -- recompiling."
-        
-        counted_ngrams = text_to_counted_ngrams(self.text, n=n)
+        counted_ngrams = self.compile_ngrams(n)
         self.save(n, counted_ngrams)
         return counted_ngrams
+
+class BrownCorpus(Corpus):
+    def __init__(self):
+        pass
+    
+    def compiled_ngram_filename(self, ngram):
+        return "brown-compiled-%i.nlpc" % ngram
+    
+    def compile_ngrams(self, n):
+        from nltk.corpus import brown
+        sentences = brown.sents()
+        ngrams = sentences_to_ngrams(sentences, n=n)
+        return counted_ngrams(ngrams)
 
 class Corpora:
     corpora = []
     default_corpora = [
-     'corpora/traversed/all2.txt',
-     'corpora/traversed/nyt.txt',
+     # Corpus('corpora/tabloid/vg.txt'),
+     # Corpus('corpora/traversed/all2.txt'),
+     # Corpus('corpora/traversed/nyt.txt'),
+     BrownCorpus(),
     ]
     
     def __init__(self, corpora=None):
@@ -70,8 +94,8 @@ class Corpora:
         # Add given corpora
         [self.add_corpus(corpus) for corpus in corpora]
     
-    def add_corpus(self, filename):
-        self.corpora.append(Corpus(filename))
+    def add_corpus(self, corpus):
+        self.corpora.append(corpus)
     
     def ngrams(self, n):
         
@@ -84,3 +108,5 @@ class Corpora:
                 all_ngrams[k] += v
         
         return all_ngrams
+
+
