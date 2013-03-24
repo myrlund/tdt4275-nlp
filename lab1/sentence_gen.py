@@ -5,21 +5,17 @@ import random, operator
 
 from loader import *
 
-def sentence_gen(corpora, priority, length=15):
+def sentence_gen(corpora, n, priority, length=15):
     """Generates a sentence of given length, based on popular n-grams."""
-    ns = range(3, 5 + 1)
     
     counted_ngrams = {}
     sorted_ngrams = {}
-    for n in ns:
-        counted_ngrams[n] = corpora.ngrams(n)
-        sorted_ngrams[n] = sorted(counted_ngrams[n].iteritems(), key=operator.itemgetter(1))[::-1]
+    
+    counted_ngrams = corpora.ngrams(n)
+    sorted_ngrams = sorted(counted_ngrams.iteritems(), key=operator.itemgetter(1))[::-1]
     
     words = [None]
     while len(filter(lambda w: w is not None, words)) < length:
-        n = ns[random.randint(0, len(ns)-1)]
-        ngrams = sorted_ngrams[n]
-        
         index = random.randint(priority, priority+2)
         
         filtered_ngrams = filter(lambda k: k[0][0] == words[-1], sorted_ngrams[n])

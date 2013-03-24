@@ -138,8 +138,8 @@ if __name__ == '__main__':
         for sentence in test_set:
             # print "Test set size: %i" % len(sentence)
             result = viterbi([word for (word, tag) in sentence], tag_probability, tag_transition_probability, word_probability_given_tag, tagged_words=training_set)
-            for i in range(len(result)):
-                if sentence[i][1] == result[i][1]:
+            for i in len(result):
+                if sentence.iteritems()[i][1] == result.iteritems()[i][1]:
                     correct += 1
                     print "."
                 else:
