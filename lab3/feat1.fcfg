@@ -1,0 +1,50 @@
+########################
+# Context-Free Grammar #
+########################
+
+#Grammar rules
+
+S -> NP[Num=?n] VP[Num=?n]
+NP[Num=?n] -> Det[Num=?n] N[Num=?n]
+NP[Num=pl] -> N[Num=pl]
+
+VP[Num=?n, Per=?p]   -> V[Num=?n, Per=?p]
+VP[Num=?n, Tense=?t] -> TV[Num=?n, Tense=?t] NP
+
+#Lexical productions
+
+NP[Num=sg] -> P[Num=sg]
+
+VP[Num=sg, Per=1] -> VP[Num=pl, Per=1]
+VP[Num=sg, Per=2] -> VP[Num=pl, Per=2]
+V[Num=pl] -> V[Tense=inf]
+
+P[Per=1, Num=sg] -> 'I'
+P[Per=2, Num=sg] -> 'you'
+P[Per=3, Num=sg] -> 'he' | 'she' | 'it'
+P[Per=1, Num=pl] -> 'we'
+P[Per=2, Num=pl] -> 'you'
+P[Per=3, Num=pl] -> 'they'
+
+PropN[Num=sg] -> 'Chez Panisse'
+PropN[Num=sg] -> 'Italian'
+
+Inf -> 'to'
+
+Det[Num=sg] -> 'a'
+Det[Num=sg] -> 'this'
+Det[Num=pl] -> 'these'
+
+N[Num=sg] -> 'dog'  | 'dinner'
+N[Num=pl] -> 'dogs' | 'dinners'
+N[Num=mass] -> 'money' | 'dinner'
+
+V[Num=sg] -> 'runs' | 'wants' | 'tells' | 'spends' | 'takes' | 'likes' | 'does'
+V[Tense=inf] -> 'run'  | 'want'  | 'tell'  | 'spend'  | 'take'  | 'like'  | 'do'
+TV[Num=sg] -> 'wants'
+TV[Num=pl] -> 'want'
+
+# Me want to spend lots of money.
+# Tell I about Chez Panisse.
+# I would like to take she to dinner.
+# Her doesn't like Italian.
