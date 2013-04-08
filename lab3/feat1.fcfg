@@ -5,31 +5,52 @@
 #Grammar rules
 
 S -> NP[Num=?n] VP[Num=?n]
+S -> V[Tense=imp] Pro[Form=obj] PP
+S -> Pro[Form=sub, Num=?n] VP[Tense=inf, Num=?n]
+
 NP[Num=?n] -> Det[Num=?n] N[Num=?n]
+NP[Num=mass] -> N[Num=mass]
 NP[Num=pl] -> N[Num=pl]
 
-VP[Num=?n, Per=?p]   -> V[Num=?n, Per=?p]
-VP[Num=?n, Tense=?t] -> TV[Num=?n, Tense=?t] NP
+VP[Num=?n, Per=?p, Tense=?t] -> V[Num=?n, Per=?p, Tense=?t, Type=intrans]
+VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type=trans] VP[Tense=inf]
+VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type=trans] NP
+VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type=ditrans] Pro[Form=obj] PP
+VP[Num=?n, Tense=inf] -> Aux V[Tense=inf, Type=trans] VP[Tense=inf]
+VP[Num=?n, Tense=inf] -> Aux V[Tense=inf, Type=trans] NP
+VP[Num=?n, Tense=inf] -> Aux V[Tense=inf, Type=ditrans] Pro[Form=obj] PP
 
-#Lexical productions
+VP[Tense=inf] -> Inf V[Tense=inf]
 
-NP[Num=sg] -> P[Num=sg]
+VP[Num=sg, Per=1, Tense=pres] -> VP[Num=pl, Per=1, Tense=inf]
+VP[Num=sg, Per=2, Tense=pres] -> VP[Num=pl, Per=2, Tense=inf]
 
-VP[Num=sg, Per=1] -> VP[Num=pl, Per=1]
-VP[Num=sg, Per=2] -> VP[Num=pl, Per=2]
-V[Num=pl] -> V[Tense=inf]
+# V[Num=pl] -> V[Tense=inf]
 
-P[Per=1, Num=sg] -> 'I'
-P[Per=2, Num=sg] -> 'you'
-P[Per=3, Num=sg] -> 'he' | 'she' | 'it'
-P[Per=1, Num=pl] -> 'we'
-P[Per=2, Num=pl] -> 'you'
-P[Per=3, Num=pl] -> 'they'
+Pro[Per=1, Num=sg, Form=sub] -> 'I'
+Pro[Per=2, Num=sg, Form=sub] -> 'you'
+Pro[Per=3, Num=sg, Form=sub] -> 'he' | 'she' | 'it'
+Pro[Per=1, Num=pl, Form=sub] -> 'we'
+Pro[Per=2, Num=pl, Form=sub] -> 'you'
+Pro[Per=3, Num=pl, Form=sub] -> 'they'
 
-PropN[Num=sg] -> 'Chez Panisse'
-PropN[Num=sg] -> 'Italian'
+Pro[Per=1, Num=sg, Form=obj] -> 'me'
+Pro[Per=2, Num=sg, Form=obj] -> 'you'
+Pro[Per=3, Num=sg, Form=obj] -> 'him' | 'her' | 'it'
+Pro[Per=1, Num=pl, Form=obj] -> 'us'
+Pro[Per=2, Num=pl, Form=obj] -> 'you'
+Pro[Per=3, Num=pl, Form=obj] -> 'them'
+
+Aux -> Inf
+Aux -> 'would' | 'does'
+Aux -> Aux 'not'
+
+N[Num=sg] -> 'Chez Panisse'
+N[Num=mass] -> 'Italian' | 'lots' 'of' 'money'
 
 Inf -> 'to'
+
+PP -> 'out' 'to' 'dinner' | 'about' 'Chez' 'Parnisse'
 
 Det[Num=sg] -> 'a'
 Det[Num=sg] -> 'this'
@@ -37,12 +58,18 @@ Det[Num=pl] -> 'these'
 
 N[Num=sg] -> 'dog'  | 'dinner'
 N[Num=pl] -> 'dogs' | 'dinners'
-N[Num=mass] -> 'money' | 'dinner'
+# N[Num=mass] -> 'dinner'
 
-V[Num=sg] -> 'runs' | 'wants' | 'tells' | 'spends' | 'takes' | 'likes' | 'does'
-V[Tense=inf] -> 'run'  | 'want'  | 'tell'  | 'spend'  | 'take'  | 'like'  | 'do'
-TV[Num=sg] -> 'wants'
-TV[Num=pl] -> 'want'
+V[Tense=pres, Num=pl] -> V[Tense=inf]
+V[Tense=imp] -> V[Tense=inf]
+
+V[Tense=inf, Type=intrans] -> 'run'
+V[Tense=inf, Type=trans] -> 'like' | 'want' | 'spend'
+V[Tense=inf, Type=ditrans] -> 'take' | 'tell'
+
+V[Num=sg, Tense=ger, Type=intrans] -> 'runs'
+V[Num=sg, Tense=ger, Type=trans] ->   'likes' | 'wants' | 'spends'
+V[Num=sg, Tense=ger, Type=ditrans] -> 'takes' | 'tells'
 
 # Me want to spend lots of money.
 # Tell I about Chez Panisse.
