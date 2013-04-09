@@ -2,30 +2,40 @@
 # Context-Free Grammar #
 ########################
 
-#Grammar rules
+# Simple Noun-Verb-ish sentences
+S -> NP[Num=?n] VP[Num=?n, -inf]
 
-S -> NP[Num=?n] VP[Num=?n]
-S -> V[Tense=imp] Pro[Form=obj] PP
+# "Tell me about ..." -- ensures object form of pronoun
+S -> V[Tense=inf] Pro[Form=obj] PP
+
+# "I want to ..." -- ensures subject form of pronoun
 S -> Pro[Form=sub, Num=?n] VP[Tense=inf, Num=?n]
 
+# Noun phrases
 NP[Num=?n] -> Det[Num=?n] N[Num=?n]
 NP[Num=mass] -> N[Num=mass]
 NP[Num=pl] -> N[Num=pl]
 
+# Non-transitive verb phrases can stand alone
 VP[Num=?n, Per=?p, Tense=?t] -> V[Num=?n, Per=?p, Tense=?t, Type=intrans]
-VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type=trans] VP[Tense=inf]
+
+# Transitive and di-transitive verb phrases come with some NP, VP or PP
+# Note: This is a vastly simplified model of the world.
+VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type=trans] VP[Tense=inf, +aux, +inf]
 VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type=trans] NP
 VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type=ditrans] Pro[Form=obj] PP
-VP[Num=?n, Tense=inf] -> Aux V[Tense=inf, Type=trans] VP[Tense=inf]
-VP[Num=?n, Tense=inf] -> Aux V[Tense=inf, Type=trans] NP
-VP[Num=?n, Tense=inf] -> Aux V[Tense=inf, Type=ditrans] Pro[Form=obj] PP
 
-VP[Tense=inf] -> Inf V[Tense=inf]
+# Allow for various auxillaries when called for. Turns the VP into infinitive.
+VP[+aux] -> Aux VP[Tense=inf]
 
-VP[Num=sg, Per=1, Tense=pres] -> VP[Num=pl, Per=1, Tense=inf]
-VP[Num=sg, Per=2, Tense=pres] -> VP[Num=pl, Per=2, Tense=inf]
+# An infinitive verb phrase: "to be"
+VP[Tense=inf, +inf] -> Inf VP[Tense=inf, -inf]
 
-# V[Num=pl] -> V[Tense=inf]
+V[Tense=pres, Num=pl] -> V[Tense=inf]
+
+# Simple shortcut, differentiating 3rd person singular
+# VP[Num=sg, Per=1, Tense=pres] -> VP[Num=pl, Per=1, Tense=inf]
+# VP[Num=sg, Per=2, Tense=pres] -> VP[Num=pl, Per=2, Tense=inf]
 
 Pro[Per=1, Num=sg, Form=sub] -> 'I'
 Pro[Per=2, Num=sg, Form=sub] -> 'you'
@@ -53,15 +63,13 @@ Inf -> 'to'
 PP -> 'out' 'to' 'dinner' | 'about' 'Chez' 'Parnisse'
 
 Det[Num=sg] -> 'a'
+Det -> 'the'
 Det[Num=sg] -> 'this'
 Det[Num=pl] -> 'these'
 
 N[Num=sg] -> 'dog'  | 'dinner'
 N[Num=pl] -> 'dogs' | 'dinners'
 # N[Num=mass] -> 'dinner'
-
-V[Tense=pres, Num=pl] -> V[Tense=inf]
-V[Tense=imp] -> V[Tense=inf]
 
 V[Tense=inf, Type=intrans] -> 'run'
 V[Tense=inf, Type=trans] -> 'like' | 'want' | 'spend'

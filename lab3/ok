@@ -1,0 +1,106 @@
+~ Part 1 ~
+
+|.I.w.t.s.l.o.m.|
+Leaf Init Rule:
+|[-] . . . . . .| [0:1] 'I'
+|. [-] . . . . .| [1:2] 'want'
+|. . [-] . . . .| [2:3] 'to'
+|. . . [-] . . .| [3:4] 'spend'
+|. . . . [-] . .| [4:5] 'lots'
+|. . . . . [-] .| [5:6] 'of'
+|. . . . . . [-]| [6:7] 'money'
+Feature Bottom Up Predict Combine Rule:
+|[-] . . . . . .| [0:1] Pro[Form='sub', Num='sg', Per=1] -> 'I' *
+Feature Bottom Up Predict Combine Rule:
+|[-> . . . . . .| [0:1] S[] -> Pro[Form='sub', Num=?n] * VP[Num=?n, Tense='inf'] {?n: 'sg'}
+Feature Bottom Up Predict Combine Rule:
+|. [-] . . . . .| [1:2] V[Tense='inf', Type='trans'] -> 'want' *
+Feature Bottom Up Predict Combine Rule:
+|. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?t: 'inf'}
+|. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?t: 'inf'}
+|. [-] . . . . .| [1:2] V[Num='pl', Tense='pres'] -> V[Tense='inf'] *
+|. [-] . . . . .| [1:2] V[Tense='imp'] -> V[Tense='inf'] *
+Feature Bottom Up Predict Combine Rule:
+|. [-> . . . . .| [1:2] S[] -> V[Tense='imp'] * Pro[Form='obj'] PP[] {}
+|. [-] . . . . .| [1:2] VP[Num=?n, Per=?p, Tense='imp'] -> V[Num=?n, Per=?p, Tense='imp', Type='intrans'] *
+|. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?t: 'imp'}
+|. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?t: 'imp'}
+|. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='ditrans'] * Pro[Form='obj'] PP[] {?t: 'imp'}
+Feature Bottom Up Predict Combine Rule:
+|. [-] . . . . .| [1:2] VP[Num='pl', Per=?p, Tense='pres'] -> V[Num='pl', Per=?p, Tense='pres', Type='intrans'] *
+|. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?n: 'pl', ?t: 'pres'}
+|. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?n: 'pl', ?t: 'pres'}
+|. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='ditrans'] * Pro[Form='obj'] PP[] {?n: 'pl', ?t: 'pres'}
+Feature Bottom Up Predict Combine Rule:
+|. . [-] . . . .| [2:3] Inf[] -> 'to' *
+Feature Bottom Up Predict Combine Rule:
+|. . [-> . . . .| [2:3] VP[Tense='inf'] -> Inf[] * V[Tense='inf'] {}
+|. . [-] . . . .| [2:3] Aux[] -> Inf[] *
+Feature Bottom Up Predict Combine Rule:
+|. . [-> . . . .| [2:3] VP[+aux] -> Aux[] * VP[Tense='inf'] {}
+|. . [-> . . . .| [2:3] Aux[] -> Aux[] * 'not' {}
+Feature Bottom Up Predict Combine Rule:
+|. . . [-] . . .| [3:4] V[Tense='inf', Type='trans'] -> 'spend' *
+Feature Bottom Up Predict Combine Rule:
+|. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?t: 'inf'}
+|. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?t: 'inf'}
+|. . . [-] . . .| [3:4] V[Num='pl', Tense='pres'] -> V[Tense='inf'] *
+|. . . [-] . . .| [3:4] V[Tense='imp'] -> V[Tense='inf'] *
+Feature Single Edge Fundamental Rule:
+|. . [---] . . .| [2:4] VP[Tense='inf'] -> Inf[] V[Tense='inf'] *
+Feature Bottom Up Predict Combine Rule:
+|. . [---] . . .| [2:4] VP[Num='sg', Per=1, Tense='pres'] -> VP[Num='pl', Per=1, Tense='inf'] *
+|. . [---] . . .| [2:4] VP[Num='sg', Per=2, Tense='pres'] -> VP[Num='pl', Per=2, Tense='inf'] *
+Feature Single Edge Fundamental Rule:
+|. [-----] . . .| [1:4] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='inf', Type='trans'] VP[Tense='inf', +aux] *
+|. [-----] . . .| [1:4] VP[Num=?n, Tense='imp'] -> V[Num=?n, Tense='imp', Type='trans'] VP[Tense='inf', +aux] *
+|. [-----] . . .| [1:4] VP[Num='pl', Tense='pres'] -> V[Num='pl', Tense='pres', Type='trans'] VP[Tense='inf', +aux] *
+Feature Bottom Up Predict Combine Rule:
+|. [-----] . . .| [1:4] VP[Num='sg', Per=1, Tense='pres'] -> VP[Num='pl', Per=1, Tense='inf'] *
+|. [-----] . . .| [1:4] VP[Num='sg', Per=2, Tense='pres'] -> VP[Num='pl', Per=2, Tense='inf'] *
+Feature Single Edge Fundamental Rule:
+|[-------] . . .| [0:4] S[] -> Pro[Form='sub', Num='sg'] VP[Num='sg', Tense='inf'] *
+Feature Bottom Up Predict Combine Rule:
+|. . . [-> . . .| [3:4] S[] -> V[Tense='imp'] * Pro[Form='obj'] PP[] {}
+|. . . [-] . . .| [3:4] VP[Num=?n, Per=?p, Tense='imp'] -> V[Num=?n, Per=?p, Tense='imp', Type='intrans'] *
+|. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?t: 'imp'}
+|. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?t: 'imp'}
+|. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='ditrans'] * Pro[Form='obj'] PP[] {?t: 'imp'}
+Feature Bottom Up Predict Combine Rule:
+|. . . [-] . . .| [3:4] VP[Num='pl', Per=?p, Tense='pres'] -> V[Num='pl', Per=?p, Tense='pres', Type='intrans'] *
+|. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?n: 'pl', ?t: 'pres'}
+|. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?n: 'pl', ?t: 'pres'}
+|. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='ditrans'] * Pro[Form='obj'] PP[] {?n: 'pl', ?t: 'pres'}
+Feature Bottom Up Predict Combine Rule:
+|. . . . [-> . .| [4:5] N[Num='mass'] -> 'lots' * 'of' 'money' {}
+Feature Single Edge Fundamental Rule:
+|. . . . [---> .| [4:6] N[Num='mass'] -> 'lots' 'of' * 'money' {}
+Feature Single Edge Fundamental Rule:
+|. . . . [-----]| [4:7] N[Num='mass'] -> 'lots' 'of' 'money' *
+Feature Bottom Up Predict Combine Rule:
+|. . . . [-----]| [4:7] NP[Num='mass'] -> N[Num='mass'] *
+Feature Bottom Up Predict Combine Rule:
+|. . . . [----->| [4:7] S[Num=?n] -> NP[Num=?n] * VP[Num=?n] {?n: 'mass'}
+Feature Single Edge Fundamental Rule:
+|. . . [-------]| [3:7] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='inf', Type='trans'] NP[] *
+|. . . [-------]| [3:7] VP[Num=?n, Tense='imp'] -> V[Num=?n, Tense='imp', Type='trans'] NP[] *
+|. . . [-------]| [3:7] VP[Num='pl', Tense='pres'] -> V[Num='pl', Tense='pres', Type='trans'] NP[] *
+Feature Bottom Up Predict Combine Rule:
+|. . . [-------]| [3:7] VP[Num='sg', Per=1, Tense='pres'] -> VP[Num='pl', Per=1, Tense='inf'] *
+|. . . [-------]| [3:7] VP[Num='sg', Per=2, Tense='pres'] -> VP[Num='pl', Per=2, Tense='inf'] *
+Feature Single Edge Fundamental Rule:
+|. . [---------]| [2:7] VP[+aux] -> Aux[] VP[Tense='inf'] *
+Feature Bottom Up Predict Combine Rule:
+|. . [---------]| [2:7] VP[Num='sg', Per=1, Tense='pres'] -> VP[Num='pl', Per=1, Tense='inf'] *
+|. . [---------]| [2:7] VP[Num='sg', Per=2, Tense='pres'] -> VP[Num='pl', Per=2, Tense='inf'] *
+Feature Single Edge Fundamental Rule:
+|. [-----------]| [1:7] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='inf', Type='trans'] VP[Tense='inf', +aux] *
+|. [-----------]| [1:7] VP[Num=?n, Tense='imp'] -> V[Num=?n, Tense='imp', Type='trans'] VP[Tense='inf', +aux] *
+|. [-----------]| [1:7] VP[Num='pl', Tense='pres'] -> V[Num='pl', Tense='pres', Type='trans'] VP[Tense='inf', +aux] *
+Feature Bottom Up Predict Combine Rule:
+|. [-----------]| [1:7] VP[Num='sg', Per=1, Tense='pres'] -> VP[Num='pl', Per=1, Tense='inf'] *
+|. [-----------]| [1:7] VP[Num='sg', Per=2, Tense='pres'] -> VP[Num='pl', Per=2, Tense='inf'] *
+Feature Single Edge Fundamental Rule:
+|[=============]| [0:7] S[] -> Pro[Form='sub', Num='sg'] VP[Num='sg', Tense='inf'] *
+I want to spend lots of money            OK
+

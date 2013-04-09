@@ -1,0 +1,41 @@
+17c17
+< |. [-] . . . . .| [1:2] V[Num='pl', Tense='inf', Type='trans'] -> 'want' *
+---
+> |. [-] . . . . .| [1:2] V[Tense='inf', Type='trans'] -> 'want' *
+19,20c19,20
+< |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?n: 'pl', ?t: 'inf'}
+< |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?n: 'pl', ?t: 'inf'}
+---
+> |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?t: 'inf'}
+> |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?t: 'inf'}
+43c43
+< |. . . [-] . . .| [3:4] V[Num='pl', Tense='inf', Type='trans'] -> 'spend' *
+---
+> |. . . [-] . . .| [3:4] V[Tense='inf', Type='trans'] -> 'spend' *
+45,46c45,46
+< |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?n: 'pl', ?t: 'inf'}
+< |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?n: 'pl', ?t: 'inf'}
+---
+> |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * VP[Tense='inf', +aux] {?t: 'inf'}
+> |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t, Type='trans'] * NP[] {?t: 'inf'}
+55c55
+< |. [-----] . . .| [1:4] VP[Num='pl', Tense='inf'] -> V[Num='pl', Tense='inf', Type='trans'] VP[Tense='inf', +aux] *
+---
+> |. [-----] . . .| [1:4] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='inf', Type='trans'] VP[Tense='inf', +aux] *
+60a61,62
+> Feature Single Edge Fundamental Rule:
+> |[-------] . . .| [0:4] S[] -> Pro[Form='sub', Num='sg'] VP[Num='sg', Tense='inf'] *
+83c85
+< |. . . [-------]| [3:7] VP[Num='pl', Tense='inf'] -> V[Num='pl', Tense='inf', Type='trans'] NP[] *
+---
+> |. . . [-------]| [3:7] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='inf', Type='trans'] NP[] *
+95c97
+< |. [-----------]| [1:7] VP[Num='pl', Tense='inf'] -> V[Num='pl', Tense='inf', Type='trans'] VP[Tense='inf', +aux] *
+---
+> |. [-----------]| [1:7] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='inf', Type='trans'] VP[Tense='inf', +aux] *
+101c103,105
+< I want to spend lots of money            FAIL
+---
+> Feature Single Edge Fundamental Rule:
+> |[=============]| [0:7] S[] -> Pro[Form='sub', Num='sg'] VP[Num='sg', Tense='inf'] *
+> I want to spend lots of money            OK
