@@ -1,0 +1,121 @@
+\documentclass[11pt,a4paper]{article}
+
+% For å kunne skrive norske tegn.
+\usepackage[utf8]{inputenc}
+
+% For å inkludere figurer.
+\usepackage{graphicx}
+
+% Ekstra matematikkfunksjoner.
+\usepackage{amsmath,amssymb}
+
+\usepackage{fancyvrb}
+
+\newenvironment{code}
+  {
+    \VerbatimEnvironment
+    \vskip\baselineskip\hrule
+    \begin{Verbatim}[xleftmargin=7pt]%
+  }
+  {\end{Verbatim}\hrule\vskip\baselineskip}
+
+% Må inkluderes for blant annet å få tilgang til kommandoen \SI (korrekte måltall med enheter)
+\usepackage{siunitx}
+
+  % Prikk som multiplikasjonstegn (i steden for kryss).
+  \sisetup{exponent-product = \cdot}
+
+  % Pluss-minus-form på usikkerhet (i steden for parentes).
+  \sisetup{separate-uncertainty = true}
+
+% For å få tilgang til finere linjer (til bruk i tabeller og slikt).
+\usepackage{booktabs}
+
+% For justering av figurtekst og tabelltekst.
+\usepackage[font=small,labelfont=bf]{caption}
+
+% Disse kommandoene kan gjøre det enklere for LaTeX å plassere figurer og tabeller der du ønsker.
+\setcounter{totalnumber}{5}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\floatpagefraction}{0.35}
+
+\begin{document}
+
+  % Rapportens tittel:
+  \title{Lab 3: Semantics \\ \large{TDT4275: Natural Language Interfaces}}
+  \author{Jonas Myrlund}
+
+  % Her ber vi LaTeX om å lage tittelen (til nå har vi bare sagt hva den skal inneholde):
+  \maketitle
+
+  \section{Written assignments} % (fold)
+  \label{sec:written_assignments}
+
+    \subsection{Feature-based grammars} % (fold)
+    \label{sub:feature_based_grammars}
+
+      Documentation exists alongside code. Please see \texttt{feat1.fcfg} for details.
+
+      \subsubsection{Example runs} % (fold)
+      \label{ssub:example_runs}
+
+        The packaged tool is simple to use, and to try out new sentences with.
+        From the root folder, run \texttt{python run.py --help} for an explanation.
+
+        The default output of the command outputs the following:
+
+        \begin{code}
+          I want to spend lots of money            OK
+          me want to spend lots of money           FAIL
+
+          tell me about Chez Parnisse              OK
+          tell I about Chez Parnisse               FAIL
+
+          I would like to take her out to dinner   OK
+          I would like to take she out to dinner   FAIL
+
+          she does not like Italian                OK
+          her does not like Italian                FAIL
+
+          this dog runs                            OK
+          I runs                                   FAIL
+          these dogs runs                          FAIL
+        \end{code}
+
+        To run a specific sentence through the parser, the command line flag \texttt{-s/--sentence} is utilized.
+        To display detailed trace information and generated parse trees, the \texttt{--debug} flag can be used.
+
+        The command \texttt{python run.py --sentence ``I want to spend lots of money'' --debug} thus yields:
+
+        {\footnotesize
+          \input{sampleoutput}
+        }
+
+      % subsubsection example_runs (end)
+
+    % subsection feature_based_grammars (end)
+
+    \subsection{First Order Logic} % (fold)
+    \label{sub:first_order_logic}
+
+      FOL-expressions for sentences: \\
+
+      \begin{tabular}{ll}
+        Sharks do not eat birds & $ \forall x \forall y \: ( Shark(x) \land Bird(y) \land \neg Eats(x, y) ) $ \\
+        Not all birds lay eggs & $ \neg ( \forall x \: ( Bird(x) \land LaysEggs(x) ) $ \\
+      \end{tabular}
+
+    % subsection first_order_logic (end)
+
+  % section written_assignments (end)
+
+  \section{Lambda-based semantics} % (fold)
+  \label{sec:lambda_based_semantics}
+
+    \begin{equation}
+      \forall x \exists y \: Near(x, y) \; \Rightarrow \; Hello
+    \end{equation}
+
+  % section lambda_based_semantics (end)
+
+\end{document}

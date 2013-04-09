@@ -1,0 +1,92 @@
+\begin{code}
+  |.I.w.t.s.l.o.m.|
+  Leaf Init Rule:
+  |[-] . . . . . .| [0:1] 'I'
+  |. [-] . . . . .| [1:2] 'want'
+  |. . [-] . . . .| [2:3] 'to'
+  |. . . [-] . . .| [3:4] 'spend'
+  |. . . . [-] . .| [4:5] 'lots'
+  |. . . . . [-] .| [5:6] 'of'
+  |. . . . . . [-]| [6:7] 'money'
+  Feature Bottom Up Predict Combine Rule:
+  |[-] . . . . . .| [0:1] Pro[Form='sub', Num='sg', Per=1] -> 'I' *
+  Feature Bottom Up Predict Combine Rule:
+  |[-> . . . . . .| [0:1] S[] -> Pro[Form='sub', Num=?n] * VP[Num=?n,
+  Feature Bottom Up Predict Combine Rule:
+  |. [-] . . . . .| [1:2] V[Tense='inf', Type='trans'] -> 'want' *
+  Feature Bottom Up Predict Combine Rule:
+  |. [-> . . . . .| [1:2] S[] -> V[Tense='inf'] * Pro[Form='obj'] PP[]
+  |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  |. [-] . . . . .| [1:2] V[Num='pl', Tense='pres'] -> V[Tense='inf']
+  Feature Bottom Up Predict Combine Rule:
+  |. [-] . . . . .| [1:2] VP[Num='pl', Per=?p, Tense='pres'] -> V[Num=
+  |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  |. [-> . . . . .| [1:2] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  Feature Bottom Up Predict Combine Rule:
+  |. . [-] . . . .| [2:3] Inf[] -> 'to' *
+  Feature Bottom Up Predict Combine Rule:
+  |. . [-> . . . .| [2:3] VP[Tense='inf', +inf] -> Inf[] * VP[Tense='i
+  |. . [-] . . . .| [2:3] Aux[] -> Inf[] *
+  Feature Bottom Up Predict Combine Rule:
+  |. . [-> . . . .| [2:3] VP[+aux] -> Aux[] * VP[Tense='inf'] {}
+  |. . [-> . . . .| [2:3] Aux[] -> Aux[] * 'not' {}
+  Feature Bottom Up Predict Combine Rule:
+  |. . . [-] . . .| [3:4] V[Tense='inf', Type='trans'] -> 'spend' *
+  Feature Bottom Up Predict Combine Rule:
+  |. . . [-> . . .| [3:4] S[] -> V[Tense='inf'] * Pro[Form='obj'] PP[]
+  |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  |. . . [-] . . .| [3:4] V[Num='pl', Tense='pres'] -> V[Tense='inf']
+  Feature Bottom Up Predict Combine Rule:
+  |. . . [-] . . .| [3:4] VP[Num='pl', Per=?p, Tense='pres'] -> V[Num=
+  |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  |. . . [-> . . .| [3:4] VP[Num=?n, Tense=?t] -> V[Num=?n, Tense=?t,
+  Feature Bottom Up Predict Combine Rule:
+  |. . . . [-> . .| [4:5] N[Num='mass'] -> 'lots' * 'of' 'money' {}
+  Feature Single Edge Fundamental Rule:
+  |. . . . [---> .| [4:6] N[Num='mass'] -> 'lots' 'of' * 'money' {}
+  Feature Single Edge Fundamental Rule:
+  |. . . . [-----]| [4:7] N[Num='mass'] -> 'lots' 'of' 'money' *
+  Feature Bottom Up Predict Combine Rule:
+  |. . . . [-----]| [4:7] NP[Num='mass'] -> N[Num='mass'] *
+  Feature Bottom Up Predict Combine Rule:
+  |. . . . [----->| [4:7] S[] -> NP[Num=?n] * VP[Num=?n, -inf] {?n: 'm
+  Feature Single Edge Fundamental Rule:
+  |. . . [-------]| [3:7] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='
+  |. . . [-------]| [3:7] VP[Num='pl', Tense='pres'] -> V[Num='pl', Te
+  Feature Single Edge Fundamental Rule:
+  |. . [---------]| [2:7] VP[Tense='inf', +inf] -> Inf[] VP[Tense='inf
+  |. . [---------]| [2:7] VP[+aux] -> Aux[] VP[Tense='inf'] *
+  Feature Single Edge Fundamental Rule:
+  |. [-----------]| [1:7] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='
+  |. [-----------]| [1:7] VP[Num='pl', Tense='pres'] -> V[Num='pl', Te
+  Feature Single Edge Fundamental Rule:
+  |[=============]| [0:7] S[] -> Pro[Form='sub', Num='sg'] VP[Num='sg'
+  Feature Single Edge Fundamental Rule:
+  |. [-----------]| [1:7] VP[Num=?n, Tense='inf'] -> V[Num=?n, Tense='
+  |. [-----------]| [1:7] VP[Num='pl', Tense='pres'] -> V[Num='pl', Te
+  I want to spend lots of money            OK
+
+  (S[]
+    (Pro[Form='sub', Num='sg', Per=1] I)
+    (VP[Num=?n, Tense='inf']
+      (V[Tense='inf', Type='trans'] want)
+      (VP[Tense='inf', +inf]
+        (Inf[] to)
+        (VP[Num=?n, Tense='inf']
+          (V[Tense='inf', Type='trans'] spend)
+          (NP[Num='mass'] (N[Num='mass'] lots of money))))))
+
+  (S[]
+    (Pro[Form='sub', Num='sg', Per=1] I)
+    (VP[Num=?n, Tense='inf']
+      (V[Tense='inf', Type='trans'] want)
+      (VP[+aux]
+        (Aux[] (Inf[] to))
+        (VP[Num=?n, Tense='inf']
+          (V[Tense='inf', Type='trans'] spend)
+          (NP[Num='mass'] (N[Num='mass'] lots of money))))))
+\end{code}
