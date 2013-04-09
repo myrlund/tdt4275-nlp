@@ -3,3 +3,5 @@
 corpora/
 .DS_Store
 *.zip
+.project
+.pydevproject
