@@ -159,9 +159,25 @@
   \section{Lambda-based semantics} % (fold)
   \label{sec:lambda_based_semantics}
 
-    \begin{equation}
-      \forall x \exists y \: Near(x, y) \; \Rightarrow \; Hello
-    \end{equation}
+    \subsection*{Exercise A} % (fold)
+    \label{sub:exercise_a}
+
+      ...
+
+    % subsection exercise_a (end)
+
+    \subsection*{Exercise B} % (fold)
+    \label{sub:exercise_b}
+
+      I was unable to get both distinct parses of the ``every'' determiner working.
+      I simply added the following pair of rules to get a primitive version:
+
+      \begin{code}
+        Det[NUM=sg,SEM=<\P Q.all x.(P(x) & Q(x))>] -> 'every'
+        Det[NUM=pl,SEM=<\P Q.exists x.(P(x) & Q(x))>] -> 'some'
+      \end{code}
+
+    % subsection exercise_b (end)
 
   % section lambda_based_semantics (end)
 
