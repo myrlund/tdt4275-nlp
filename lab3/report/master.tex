@@ -109,11 +109,48 @@
       \label{ssub:nltk_format}
 
         \begin{tabular}{ll}
-          Sharks do not eat birds & {\texttt all x y.(Shark(x) & Bird(y) & -Eats(x, y))) } \\
-          Not all birds lay eggs  & {\texttt -(all x.(Bird(x) & LaysEggs(x))) } \\
+          Sharks do not eat birds & \texttt{all x y.(Shark(x) \& Bird(y) \& -Eats(x, y))} \\
+          Not all birds lay eggs  & \texttt{-(all x.(Bird(x) \& LaysEggs(x)))} \\
         \end{tabular}
 
       % subsubsection nltk_format (end)
+
+      \subsubsection{Running the expressions} % (fold)
+      \label{ssub:running_the_expressions}
+
+        The expressions run nicely through the NLTK Logic Parser.
+        Calling \texttt{free()} on the resulting objects yields empty sets, as expected.
+
+        \emph{Free variables}, contrary to \emph{bound variables},
+        means that the variable is not associated with a quantifier, such as $\forall$ or $\exists$.
+        In the case of the above expressions, all cases of variables are both bound to $\forall$-quantifiers.
+
+      % subsubsection running_the_expressions (end)
+
+      \subsubsection{World models} % (fold)
+      \label{ssub:world_models}
+
+        The following code builds a simple set of logical expressions:
+
+        \begin{code}
+          lp = nltk.LogicParser()
+
+          a = lp.parse('exists x.(samfundet(x) and school(x))')
+          b = lp.parse('smart(jonas)')
+          c = lp.parse('-smart(jonas)')
+        \end{code}
+
+        To execute them together, we can run them in the following manner:
+
+        \begin{code}
+          mace = nltk.Mace()
+
+          mace.build_model(None, [a, b]) # => True
+          mace.build_model(None, [a, c]) # => True
+          mace.build_model(None, [b, c]) # => False
+        \end{code}
+
+      % subsubsection world_models (end)
 
     % subsection first_order_logic (end)
 
