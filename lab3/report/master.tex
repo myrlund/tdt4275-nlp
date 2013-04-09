@@ -101,9 +101,19 @@
       FOL-expressions for sentences: \\
 
       \begin{tabular}{ll}
-        Sharks do not eat birds & $ \forall x \forall y \: ( Shark(x) \land Bird(y) \land \neg Eats(x, y) ) $ \\
+        Sharks do not eat birds & $ \forall x, y \: ( Shark(x) \land Bird(y) \land \neg Eats(x, y) ) $ \\
         Not all birds lay eggs & $ \neg ( \forall x \: ( Bird(x) \land LaysEggs(x) ) $ \\
       \end{tabular}
+
+      \subsubsection{NLTK-format} % (fold)
+      \label{ssub:nltk_format}
+
+        \begin{tabular}{ll}
+          Sharks do not eat birds & {\texttt all x y.(Shark(x) & Bird(y) & -Eats(x, y))) } \\
+          Not all birds lay eggs  & {\texttt -(all x.(Bird(x) & LaysEggs(x))) } \\
+        \end{tabular}
+
+      % subsubsection nltk_format (end)
 
     % subsection first_order_logic (end)
 
