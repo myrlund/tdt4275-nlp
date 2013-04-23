@@ -9,6 +9,8 @@
 % Ekstra matematikkfunksjoner.
 \usepackage{amsmath,amssymb}
 
+\usepackage[section]{placeins}
+
 \usepackage{hyperref}
 \usepackage{fancyvrb}
 
@@ -145,6 +147,90 @@
     % subsection create_an_interpolated_precision_recall_curve_comparing_the_accuracy_of_each_of_the_queries_ (end)
 
   % section written_assignments (end)
+
+  \section{Information Retrieval} % (fold)
+  \label{sec:information_retrieval}
+
+    I went for a corpus traversed with Lynx from \url{http://www.sciencenews.org/}.
+
+    \subsection{The effects of the various steps described in the assignment.}
+
+      \paragraph{Turn the corpus into text form.}
+
+      This really has no significant effect, as the corpus garnered from Lynx is already stripped of all HTML tags.
+
+      \paragraph{Turn the file into a list of words.}
+
+      Removes special characters, lowercases, and generally simplifies words into tokens, like this:
+      \\
+
+      \begin{tabular}{ll}
+         \textbf{Before} & Animals' cognitive shortcomings are as revealing as their genius. \\
+         \textbf{After}  & animals cognitive shortcomings are as revealing as their genius \\
+      \end{tabular}
+      \\
+
+      \paragraph{Build word frequency tables.}
+
+      This results in a series of \emph{term frequency} files, of the following format:
+
+      \begin{code}
+        0.00342987804878049        animals
+        0.00114503816793893        cognitive
+        0.00114503816793893        shortcomings
+      \end{code}
+
+      The number to the left denotes the term frequency of the word to the right.
+
+      \paragraph{Create your own stop list.}
+
+      This step is simply a matter of looking manually at some of the generated files and seeing which words are present in every document.
+      These are manually extracted into a stop list.
+
+      The beginning of my stop list looks like the following:
+
+      \begin{code}
+        a
+        all
+        the
+        of
+        and
+        in
+        for
+        on
+        or
+      \end{code}
+
+      \paragraph{Determine the terms' descriminative values.}
+
+      This step calculates the IDF -- the inverse document frequency -- of each word found in the tokenized document collection.
+      The IDF routine simply outputs each word together with the inverse of the term frequency over the entire corpus.
+
+      \paragraph{Experiment with a simple search engine.}
+
+      Searching for ``physical society'' should probably lead to a document summarizing a recent meeting in the Physical Society.
+
+      Running \texttt{echo physical society | ../bin/search.perl -i idflist -e tfs} results in the following
+      (please note that the numbers to the left are a result of some heavy playing around with weighting TF and IDF terms):
+
+      \begin{code}
+        2430.451300474519204 lnk00000036.tfs
+        0.451300474519204 lnk00000037.tfs
+        0.204453275655133 lnk00000030.tfs
+      \end{code}
+
+      As expected, the raw document \texttt{lnk00000036.txt} is the document we were looking for.
+
+      Using a stoplist has no significant effect with the configuration used in the example above.
+
+  % section information_retrieval (end)
+
+  \section{Text Summarisation} % (fold)
+  \label{sec:text_summarisation}
+
+    @TODO
+
+  % section text_summarisation (end)
 
 \end{document}
 
