@@ -12,6 +12,12 @@
 \usepackage[section]{placeins}
 
 \usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true, % hyperlinks will be black
+  urlcolor=red,
+  linkcolor=red
+}
+
 \usepackage{fancyvrb}
 
 \newenvironment{code}
@@ -228,9 +234,141 @@
   \section{Text Summarisation} % (fold)
   \label{sec:text_summarisation}
 
-    @TODO
+    \subsection{} % (fold)
+
+      The SweSum summariser\footnote{\url{http://swesum.nada.kth.se/index-eng-adv.html}} is first and foremost a single DOC summariser.
+      Furthermore, it accepts keywords to aid in the summarisation, in this way handling a sort of QUERY input as well.
+
+      The summariser is an EXTRACT summariser -- it selects what it deems the most relevant sentences, and concatenates them together.
+
+    % subsection  (end)
+
+    \subsection{} % (fold)
+
+      The first article I've chosen to summarise is one about seafowl being killed by seismic shooting under water\footnote{\url{http://www.nrk.no/nyheter/distrikt/troms_og_finnmark/1.10996526}}.
+      The summaries are attached in appendix \ref{sub:article_1}.
+
+      The second article is a short sports article\footnote{\url{http://www.nrk.no/sport/fotball/tyson-stotter-suarez-1.10997215 }}. The summaries are attached in appendix \ref{sub:article_2}.
+
+    % subsection  (end)
+
+    \subsection{} % (fold)
+
+      I would rank the summaries in the following way:
+
+      \begin{enumerate}
+        \item 25\% version of article \ref{sub:article_2}.
+        \item 50\% version of article \ref{sub:article_1}.
+        \item 50\% version of article \ref{sub:article_2}.
+        \item 25\% version of article \ref{sub:article_1}.
+      \end{enumerate}
+
+      \paragraph{My favorite summary} is extremely short.
+      However, it highlights the important parts of the article, while leaving out a lot of the quite uninteresting parts.
+
+      The real story -- the message -- is in the first couple of paragraphs, whereas the latter half of the article raves about how the two people involved heard about each other and started following each other on Twitter -- very peripheral material.
+      This last bit is all left out in the summary, and would probably never be missed by anyone.
+
+      \paragraph{The worst summary in my opinion} fails to acknowledge the different opinions within the original article.
+      The article is split in two, the first half presenting one view, the other half presenting an opposing view, and it does not conclude one way or another.
+      The summary, however, presents only the first view, and fails to even mention the controversy highlighted by the latter half of the article.
+
+      \paragraph{I can think of two ways of making sure the omitted sentences are included:}
+      to \emph{identify the headlines} and include at least one central sentence from each of these headlined sections,
+      and \emph{classifying the names of people involved}, ensuring that one quote from each interviewee is included in the summary.
+
+    % subsection  (end)
 
   % section text_summarisation (end)
+
+\appendix
+
+\renewcommand{\thesubsection}{\thesection-\arabic{subsection}}
+
+\section{Text summaries} % (fold)
+\label{sec:text_summaries}
+
+  \subsection{Article 1 -- ``Mener lundefuglene kan ha dødd på grunn av seismikkskyting''} % (fold)
+  \label{sub:article_1}
+
+    The original article can be found \href{http://www.nrk.no/nyheter/distrikt/troms_og_finnmark/1.10996526}{on NRK.no}.
+
+    The \emph{25\% summary}:
+
+    \begin{quotation}
+      I forrige uke fant barnehageunger på tur i Botnfjæra i Dyfjord i Finnmark 11 døde lundefugler.
+      Fisker og sekretær i Andøy Fiskarlag, Bjørnar Nicolaysen, mener konsekvensene av seismikkskytingene i Vesterålen, Lofoten og Senja er mye verre enn antatt.
+
+      De døde lundefuglene som nylig ble funnet i fjæra i Dyfjord i Lebesby kommune i Finnmark kan skyldes trykkbølgene fra seismikkskyting, frykter Nicolaysen.
+
+      – Lundefugl som annen sjøfugl er avhengig av maten som finnes under havflaten.
+
+      Seismikkskyting er oljeindustriens viktigste redskap for å kartlegge mulige forekomster av olje og gass mange tusen meter under jordoverflaten, og er derfor definert som petroleumsvirksomhet i petroleumsloven. Det er blitt undersøkt konsekvensene av effektene av seismikk på havet.
+    \end{quotation}
+
+    The \emph{50\% summary}:
+
+    \begin{quotation}
+      I forrige uke fant barnehageunger på tur i Botnfjæra i Dyfjord i Finnmark 11 døde lundefugler.
+      Fisker og sekretær i Andøy Fiskarlag, Bjørnar Nicolaysen, mener konsekvensene av seismikkskytingene i Vesterålen, Lofoten og Senja er mye verre enn antatt.
+
+      De døde lundefuglene som nylig ble funnet i fjæra i Dyfjord i Lebesby kommune i Finnmark kan skyldes trykkbølgene fra seismikkskyting, frykter Nicolaysen.
+
+      – Lundefugl som annen sjøfugl er avhengig av maten som finnes under havflaten. Dukker den ned der det skytes seismikk, så er den ferdig.
+
+      Fisker Bjørnar Nicolaisen fra Andøy mener lundefuglene kan ha dødd på grunn av seismikkskyting.
+
+      Seismikkskyting er oljeindustriens viktigste redskap for å kartlegge mulige forekomster av olje og gass mange tusen meter under jordoverflaten, og er derfor definert som petroleumsvirksomhet i petroleumsloven.
+
+      – Det er ingen av oss som kjenner til episoder hvor seismikk har drept sjøfugl. Tvert om antar vi at sjøfugl svømmer under båten når den nærmere seg, og blir ikke påvirket i det hele tatt.
+
+      – Jeg tviler på at lundefuglepisoden har noe med seismikk å gjøre.
+
+      – Kan omfattende seismikkskyting påvirke fuglelivet? Det er blitt undersøkt konsekvensene av effektene av seismikk på havet. Det ble også gjort undersøkelser på sjøpattedyr.
+
+      De har også deltat i overvåkings- og kartleggingsprogram for norske sjøfugler (Seapop), hvor seismikk og sjøfugl aldri tidligere har vært et tema.
+    \end{quotation}
+
+  % subsection article_1 (end)
+
+  \subsection{Article 2 -- ``Bite-Tyson tar bite-Suarez i forsvar''} % (fold)
+  \label{sub:article_2}
+
+    The original article can be found \href{http://www.nrk.no/sport/fotball/tyson-stotter-suarez-1.10997215}{on NRK.no}.
+
+    The \emph{25\% summary}:
+
+    \begin{quotation}
+      Bite-Tyson tar bite-Suarez i forsvar
+      – Han bet noen, sånt skjer, sier Mike Tyson.
+
+      Etter Luis Suarez' siste skandale, søndagens biting av Chelsea-spiller Branislav Ivanovic, får han støtte fra noen som virkelig kan sette seg inn i situasjonen hans - bokselegenden Mike Tyson.
+
+      Mange husker nok da Tyson satte tennene i Evander Holyfields øre under en boksekamp i 1997.
+    \end{quotation}
+
+    The \emph{50\% summary}:
+
+    \begin{quotation}
+      Bite-Tyson tar bite-Suarez i forsvar
+      – Han bet noen, sånt skjer, sier Mike Tyson.
+
+      Mike Tyson uttalte seg om Luis Suarez i et radioshow tirsdag.
+
+      Etter Luis Suarez' siste skandale, søndagens biting av Chelsea-spiller Branislav Ivanovic, får han støtte fra noen som virkelig kan sette seg inn i situasjonen hans - bokselegenden Mike Tyson. De er og var begge i verdenstoppen i sine idretter, og begge har brukt biting i forsøk på å stanse sine motstandere.
+
+      Mange husker nok da Tyson satte tennene i Evander Holyfields øre under en boksekamp i 1997.
+
+      Følger Suarez på Twitter
+
+      Etter biteepisoden søndag var det flere som merket seg at plutselig hadde bokselegenden begynt å ``følge'' Suarez på nettstedet Twitter.
+
+      Tyson bekrefter at det var bitingen som gjorde ham oppmerksom på Liverpool-spilleren. Han kan vente seg flere kampers karantene.
+    \end{quotation}
+
+  % subsection article_2 (end)
+
+% section text_summaries (end)
 
 \end{document}
 
