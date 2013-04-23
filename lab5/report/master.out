@@ -1,0 +1,7 @@
+\BOOKMARK [1][-]{section.1}{Written Assignments}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Using either web searches or a large corpus, devise a query using a polysemous word.}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Then, devise two or three alternate queries which help to disambiguate the polysemous word and repeat the search.}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{For each query, classify each of the top 10 search results as correct or incorrect.}{section.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Query: ``large crane''}{subsection.1.3}% 5
+\BOOKMARK [3][-]{subsubsection.1.3.2}{Queries: ``large crane bird'' and ``large crane feathers''}{subsection.1.3}% 6
+\BOOKMARK [2][-]{subsection.1.4}{Create an interpolated precision-recall curve comparing the accuracy of each of the queries.}{section.1}% 7
